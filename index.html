@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4a1020">
+  <meta name="description" content="You are cordially invited to celebrate the wedding of Srashti and Tanmay.">
+  <title>Srashti & Tanmay | Wedding Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --wine: #4a1020;
+      --wine-dark: #2a0912;
+      --wine-light: #6b2435;
+      --gold: #d7b56d;
+      --gold-light: #f1dfaa;
+      --cream: #fbf5e9;
+      --paper: #f5ead6;
+      --ink: #3b2025;
+      --muted: #7c6260;
+      --white: #fffdf8;
+      --shadow: 0 18px 55px rgba(42, 9, 18, .16);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 78px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: "Montserrat", sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    body.locked { overflow: hidden; }
+    a { color: inherit; }
+    button { font: inherit; }
+    img { max-width: 100%; display: block; }
+    .serif { font-family: "Cormorant Garamond", Georgia, serif; }
+    .eyebrow {
+      color: var(--gold);
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+    }
+    .section { padding: 88px 20px; }
+    .container { width: min(1080px, 100%); margin: 0 auto; }
+    .section-heading { text-align: center; margin: 0 auto 42px; max-width: 720px; }
+    .section-heading .eyebrow { color: #9a7435; }
+    .section-heading h2 {
+      margin: 7px 0 10px;
+      color: var(--wine);
+      font: 500 clamp(2.5rem, 6vw, 4rem)/1.05 "Cormorant Garamond", Georgia, serif;
+    }
+    .section-heading p { color: var(--muted); margin: 0 auto; max-width: 620px; }
+    .ornament { display: flex; align-items: center; justify-content: center; gap: 12px; color: #b28b47; margin: 18px auto; }
+    .ornament::before, .ornament::after { content: ""; width: 54px; height: 1px; background: currentColor; opacity: .65; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      border: 1px solid var(--gold); border-radius: 2px; padding: 13px 22px;
+      background: var(--gold); color: var(--wine-dark); text-decoration: none;
+      text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; font-weight: 600;
+      cursor: pointer; transition: transform .2s ease, background .2s ease, color .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); background: var(--gold-light); }
+    .btn-outline { color: var(--gold-light); background: transparent; }
+    .btn-outline:hover { color: var(--wine-dark); background: var(--gold); }
+
+    /* Opening invitation */
+    .intro {
+      position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center;
+      padding: 22px; background:
+        radial-gradient(ellipse at center, rgba(114, 42, 57, .65), transparent 65%),
+        linear-gradient(135deg, var(--wine-dark), var(--wine) 55%, #25070f);
+      transition: opacity .8s ease, visibility .8s ease;
+    }
+    .intro.closed { opacity: 0; visibility: hidden; pointer-events: none; }
+    .intro-frame {
+      position: relative; width: min(540px, 100%); min-height: 590px; padding: 28px;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+      border: 1px solid rgba(215,181,109,.75); outline: 1px solid rgba(215,181,109,.3); outline-offset: -10px;
+      color: var(--cream); box-shadow: 0 25px 90px rgba(0,0,0,.3);
+    }
+    .intro-frame::before, .intro-frame::after {
+      content: "✦"; position: absolute; color: var(--gold); font-size: 1.5rem;
+    }
+    .intro-frame::before { top: 22px; left: 25px; }
+    .intro-frame::after { bottom: 22px; right: 25px; }
+    .intro-mark { font-size: 2.6rem; color: var(--gold); margin: 10px 0; }
+    .intro h1 { font: 500 clamp(3rem, 9vw, 5.3rem)/.9 "Cormorant Garamond", Georgia, serif; margin: 18px 0; }
+    .intro h1 span { display: block; color: var(--gold-light); font-size: .55em; margin: 12px 0; font-style: italic; }
+    .intro p { max-width: 320px; color: #eadfc9; font-size: .78rem; letter-spacing: .09em; }
+    .intro .btn { margin-top: 20px; }
+    .intro-small { margin-top: 22px; font-size: .65rem; letter-spacing: .2em; color: #d4bd8d; text-transform: uppercase; }
+
+    /* Header and hero */
+    .site-header {
+      position: sticky; top: 0; z-index: 50; background: rgba(42,9,18,.96);
+      border-bottom: 1px solid rgba(215,181,109,.35); backdrop-filter: blur(12px);
+    }
+    .nav {
+      width: min(1180px, 100%); min-height: 72px; margin: 0 auto; padding: 12px 22px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .brand { color: var(--gold-light); text-decoration: none; font: 600 1.7rem/1 "Cormorant Garamond", Georgia, serif; white-space: nowrap; }
+    .brand span { color: var(--gold); font-style: italic; }
+    .nav-links { display: flex; align-items: center; gap: 23px; }
+    .nav-links a { color: #f7ecd7; text-decoration: none; text-transform: uppercase; font-size: .63rem; letter-spacing: .12em; }
+    .nav-links a:hover { color: var(--gold); }
+    .menu-toggle { display: none; border: 1px solid rgba(215,181,109,.5); background: transparent; color: var(--gold); padding: 7px 10px; }
+
+    .hero {
+      min-height: 690px; display: grid; place-items: center; position: relative; overflow: hidden;
+      padding: 90px 20px; text-align: center; color: var(--cream);
+      background:
+        linear-gradient(rgba(42,9,18,.72), rgba(42,9,18,.82)),
+        url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=85") center/cover;
+    }
+    .hero::before { content: ""; position: absolute; inset: 18px; border: 1px solid rgba(215,181,109,.58); pointer-events: none; }
+    .hero-content { position: relative; max-width: 850px; }
+    .hero .eyebrow { color: var(--gold-light); }
+    .hero h1 { font: 500 clamp(4rem, 12vw, 8.5rem)/.82 "Cormorant Garamond", Georgia, serif; margin: 30px 0; text-shadow: 0 5px 25px rgba(0,0,0,.28); }
+    .hero h1 span { display: block; font-size: .38em; color: var(--gold); font-style: italic; margin: 17px 0; }
+    .hero-date { font-size: .85rem; letter-spacing: .2em; text-transform: uppercase; color: #f4e7ce; }
+    .hero-note { max-width: 550px; margin: 22px auto 30px; color: #f1e4d0; font-size: .95rem; }
+
+    /* Countdown */
+    .countdown-section { background: var(--wine); color: var(--cream); padding: 56px 20px; }
+    .countdown-title { text-align: center; color: var(--gold-light); font: 500 2.5rem "Cormorant Garamond", Georgia, serif; margin: 0 0 22px; }
+    .countdown { display: flex; justify-content: center; gap: clamp(12px, 4vw, 48px); text-align: center; }
+    .count-unit { min-width: 64px; }
+    .count-number { color: var(--gold); display: block; font: 500 clamp(2.2rem, 6vw, 3.5rem)/1 "Cormorant Garamond", Georgia, serif; }
+    .count-label { color: #e7d7bd; font-size: .62rem; text-transform: uppercase; letter-spacing: .16em; }
+
+    /* Story */
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 55px; align-items: center; }
+    .story-photo {
+      min-height: 470px; background:
+        linear-gradient(0deg, rgba(42,9,18,.12), rgba(42,9,18,.03)),
+        url("https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1000&q=85") center/cover;
+      border: 9px solid var(--white); outline: 1px solid #d8c18f; box-shadow: var(--shadow);
+    }
+    .story-copy h3 { color: var(--wine); font: 500 clamp(2.5rem, 5vw, 3.8rem)/1 "Cormorant Garamond", Georgia, serif; margin: 12px 0 20px; }
+    .story-copy p { color: var(--muted); }
+    .signature { color: #9a7435; font: italic 2rem "Cormorant Garamond", Georgia, serif; margin-top: 22px; }
+
+    /* Events */
+    .events-section { background: #f0e3cd; }
+    .event-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .event-card {
+      position: relative; text-align: center; padding: 32px 23px 30px; background: rgba(255,253,248,.78);
+      border: 1px solid #d8c18f; box-shadow: 0 10px 30px rgba(74,16,32,.05);
+    }
+    .event-icon { width: 60px; height: 60px; border: 1px solid #c9a65e; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 18px; color: #9a7435; font-size: 1.5rem; }
+    .event-card h3 { font: 600 2rem "Cormorant Garamond", Georgia, serif; color: var(--wine); margin: 0 0 8px; }
+    .event-date { color: #9a7435; font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+    .event-card p { color: var(--muted); font-size: .86rem; margin: 14px 0 0; }
+
+    /* Gallery */
+    .gallery-grid { display: grid; grid-template-columns: 1.1fr .9fr .9fr; grid-template-rows: 220px 220px; gap: 14px; }
+    .gallery-item { position: relative; overflow: hidden; background: #e3d4bc; }
+    .gallery-item:first-child { grid-row: span 2; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item::after { content: ""; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,.45); pointer-events: none; margin: 8px; }
+
+    /* Venue */
+    .venue-section { background: var(--wine-dark); color: var(--cream); }
+    .venue-section .section-heading h2 { color: var(--cream); }
+    .venue-section .section-heading p { color: #d9c8b5; }
+    .venue-card { max-width: 800px; margin: 0 auto; text-align: center; border: 1px solid rgba(215,181,109,.6); padding: 45px 24px; position: relative; }
+    .venue-pin { color: var(--gold); font-size: 2rem; }
+    .venue-card h3 { color: var(--gold-light); font: 500 clamp(2.2rem, 5vw, 3.4rem) "Cormorant Garamond", Georgia, serif; margin: 10px 0; }
+    .venue-card p { color: #e1d3c0; margin: 8px 0 24px; }
+
+    /* RSVP */
+    .rsvp-card { max-width: 740px; margin: 0 auto; padding: 35px; background: var(--white); border: 1px solid #d8c18f; box-shadow: var(--shadow); }
+    .rsvp-form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { color: var(--wine); font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; }
+    .field input, .field select, .field textarea { width: 100%; border: 1px solid #d9cbb7; border-radius: 0; background: #fffdf8; padding: 13px 12px; color: var(--ink); font: inherit; outline: none; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: #a9803b; box-shadow: 0 0 0 2px rgba(169,128,59,.12); }
+    .field textarea { min-height: 100px; resize: vertical; }
+    .rsvp-form .btn { grid-column: 1 / -1; justify-self: center; margin-top: 8px; }
+
+    footer { padding: 48px 20px; text-align: center; background: #21060d; color: #e9d8bc; }
+    footer .footer-names { color: var(--gold-light); font: 500 clamp(2.8rem, 7vw, 4.5rem)/1 "Cormorant Garamond", Georgia, serif; margin: 0 0 14px; }
+    footer p { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
+    .back-top { display: inline-block; margin-top: 14px; color: var(--gold); text-decoration: none; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+    @media (max-width: 850px) {
+      .menu-toggle { display: block; }
+      .nav-links { display: none; position: absolute; left: 0; right: 0; top: 72px; padding: 18px 24px 22px; flex-direction: column; align-items: flex-start; gap: 18px; background: var(--wine-dark); border-bottom: 1px solid rgba(215,181,109,.35); }
+      .nav-links.open { display: flex; }
+      .story-grid { gap: 32px; }
+      .event-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
+      .event-card { padding: 28px 22px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 230px 180px 180px; }
+      .gallery-item:first-child { grid-row: span 2; }
+    }
+    @media (max-width: 600px) {
+      .section { padding: 66px 18px; }
+      .nav { min-height: 66px; padding: 10px 18px; }
+      .brand { font-size: 1.5rem; }
+      .nav-links { top: 66px; }
+      .hero { min-height: 610px; padding: 75px 20px; }
+      .hero::before { inset: 10px; }
+      .hero-date { font-size: .68rem; letter-spacing: .12em; }
+      .hero-note { font-size: .85rem; }
+      .countdown-section { padding: 44px 12px; }
+      .countdown-title { font-size: 2.1rem; }
+      .count-unit { min-width: 54px; }
+      .count-label { font-size: .53rem; letter-spacing: .08em; }
+      .story-grid { grid-template-columns: 1fr; gap: 32px; }
+      .story-photo { min-height: 360px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 150px 150px; gap: 9px; }
+      .gallery-item:first-child { grid-row: span 2; }
+      .rsvp-card { padding: 22px 16px; }
+      .rsvp-form { grid-template-columns: 1fr; }
+      .field.full, .rsvp-form .btn { grid-column: auto; }
+      .intro-frame { min-height: 540px; padding: 22px; }
+    }
+  </style>
+</head>
+<body class="locked">
+
+  <!-- EDIT YOUR WEDDING DETAILS IN THE SETTINGS OBJECT AT THE BOTTOM OF THIS FILE -->
+
+  <section class="intro" id="intro" aria-label="Wedding invitation opening">
+    <div class="intro-frame">
+      <div class="eyebrow">A royal celebration of love</div>
+      <div class="intro-mark">❦</div>
+      <p>THE WEDDING INVITATION OF</p>
+      <h1 class="serif"><span id="introBride">Srashti</span><span>&</span><span id="introGroom">Tanmay</span></h1>
+      <div class="ornament">✦</div>
+      <p>Two hearts, one beautiful journey. We would be honoured to have you with us.</p>
+      <button class="btn" id="openInvite" type="button">Open Invitation <span aria-hidden="true">↗</span></button>
+      <div class="intro-small" id="introDate">25 November 2026</div>
+    </div>
+  </section>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand serif" href="#home"><span id="navBride">Srashti</span> <span>&</span> <span id="navGroom">Tanmay</span></a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a><a href="#story">Our Story</a><a href="#events">Events</a><a href="#gallery">Gallery</a><a href="#venue">Venue</a><a href="#rsvp">RSVP</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="eyebrow">Together with our families</div>
+        <h1 class="serif"><span id="heroBride">Srashti</span><span>&</span><span id="heroGroom">Tanmay</span></h1>
+        <div class="hero-date" id="heroDate">25 November 2026 · 7:00 PM</div>
+        <div class="ornament">✦</div>
+        <p class="hero-note">With hearts full of joy, we invite you to join us as we begin our forever. Your presence will make our celebration truly special.</p>
+        <a class="btn" href="#events">Celebrate With Us</a>
+      </div>
+    </section>
+
+    <section class="countdown-section" aria-label="Wedding countdown">
+      <div class="container">
+        <h2 class="countdown-title">Counting Down to Forever</h2>
+        <div class="countdown" aria-live="polite">
+          <div class="count-unit"><span class="count-number" id="days">--</span><span class="count-label">Days</span></div>
+          <div class="count-unit"><span class="count-number" id="hours">--</span><span class="count-label">Hours</span></div>
+          <div class="count-unit"><span class="count-number" id="minutes">--</span><span class="count-label">Minutes</span></div>
+          <div class="count-unit"><span class="count-number" id="seconds">--</span><span class="count-label">Seconds</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="story">
+      <div class="container story-grid">
+        <div class="story-photo reveal" role="img" aria-label="Romantic wedding celebration photograph"></div>
+        <div class="story-copy reveal">
+          <div class="eyebrow" style="color:#9a7435">A little about us</div>
+          <h3>Two Souls,<br>One Beautiful Story</h3>
+          <div class="ornament" style="justify-content:flex-start;margin-left:0">✦</div>
+          <p>Some journeys are written in the stars, and some begin with a simple hello. Our story is a celebration of friendship, family, laughter, and the little moments that became our favourite memories.</p>
+          <p>As we turn the page to our next chapter, we would love to share this once-in-a-lifetime moment with the people who mean the most to us.</p>
+          <div class="signature">With love, Srashti & Tanmay</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section events-section" id="events">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">Save the dates</div>
+          <h2>Wedding Celebrations</h2>
+          <div class="ornament">✦</div>
+          <p>Every ceremony has its own magic. Join us for the colours, traditions, music, and memories.</p>
+        </div>
+        <div class="event-grid">
+          <article class="event-card reveal">
+            <div class="event-icon" aria-hidden="true">❋</div>
+            <div class="event-date" id="haldiDate">23 November 2026 · 11:00 AM</div>
+            <h3>Haldi</h3>
+            <p>A morning filled with sunshine, blessings, laughter, and the golden glow of happiness.</p>
+          </article>
+          <article class="event-card reveal">
+            <div class="event-icon" aria-hidden="true">❦</div>
+            <div class="event-date" id="mehndiDate">24 November 2026 · 5:00 PM</div>
+            <h3>Mehndi</h3>
+            <p>Beautiful henna, music, dancing, and a joyful evening with our favourite people.</p>
+          </article>
+          <article class="event-card reveal">
+            <div class="event-icon" aria-hidden="true">✧</div>
+            <div class="event-date" id="weddingEventDate">25 November 2026 · 7:00 PM</div>
+            <h3>The Wedding</h3>
+            <p>Join us as we exchange vows and begin our forever surrounded by love and blessings.</p>
+          </article>
+          <article class="event-card reveal">
+            <div class="event-icon" aria-hidden="true">✦</div>
+            <div class="event-date" id="receptionDate">26 November 2026 · 7:30 PM</div>
+            <h3>Reception</h3>
+            <p>An evening of warm wishes, wonderful company, delicious food, and celebration.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gallery">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">Moments to remember</div>
+          <h2>Our Gallery</h2>
+          <div class="ornament">✦</div>
+          <p>A few frames of love and celebration. These sample photos can be replaced with your own pictures.</p>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85" alt="Elegant wedding ceremony"></div>
+          <div class="gallery-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=700&q=85" alt="Wedding couple celebration"></div>
+          <div class="gallery-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=700&q=85" alt="Wedding flowers and details"></div>
+          <div class="gallery-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?auto=format&fit=crop&w=700&q=85" alt="Wedding decoration"></div>
+          <div class="gallery-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=700&q=85" alt="Romantic wedding table setting"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section venue-section" id="venue">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">We can't wait to see you</div>
+          <h2>Wedding Venue</h2>
+          <div class="ornament">✦</div>
+          <p>Your presence is the most precious gift. Please join us at the place where our new chapter begins.</p>
+        </div>
+        <div class="venue-card reveal">
+          <div class="venue-pin" aria-hidden="true">⌖</div>
+          <h3 id="venueName">Royal Wedding Venue</h3>
+          <p id="venueAddress">Hathras, Uttar Pradesh, India</p>
+          <a class="btn btn-outline" id="mapLink" href="https://www.google.com/maps/search/?api=1&query=Royal+Wedding+Venue+Hathras+Uttar+Pradesh" target="_blank" rel="noopener noreferrer">Get Directions ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rsvp">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">Kindly respond</div>
+          <h2>Will You Join Us?</h2>
+          <div class="ornament">✦</div>
+          <p>Please let us know if you can join the celebration. This form opens WhatsApp with your response ready to send.</p>
+        </div>
+        <div class="rsvp-card reveal">
+          <form class="rsvp-form" id="rsvpForm">
+            <div class="field">
+              <label for="guestName">Your Name</label>
+              <input id="guestName" name="guestName" type="text" placeholder="Enter your name" required>
+            </div>
+            <div class="field">
+              <label for="guestCount">Number of Guests</label>
+              <select id="guestCount" name="guestCount" required>
+                <option value="1">1 guest</option><option value="2" selected>2 guests</option><option value="3">3 guests</option><option value="4">4 guests</option><option value="5+">5 or more</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="attendance">Will you attend?</label>
+              <select id="attendance" name="attendance" required>
+                <option value="Joyfully accepts">Joyfully accepts</option>
+                <option value="Regretfully declines">Regretfully declines</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="guestMessage">A message for the couple (optional)</label>
+              <textarea id="guestMessage" name="guestMessage" placeholder="Write your wishes..."></textarea>
+            </div>
+            <button class="btn" type="submit">Send RSVP on WhatsApp ↗</button>
+          </form>
+          <p style="text-align:center;color:#7c6260;font-size:.75rem;margin:18px 0 0">Please update the WhatsApp number in the SETTINGS section at the bottom of this file before publishing.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-names serif"><span id="footerBride">Srashti</span> & <span id="footerGroom">Tanmay</span></div>
+    <div class="ornament">✦</div>
+    <p>Two families · One celebration · A lifetime of love</p>
+    <p id="footerDate">25 November 2026</p>
+    <a class="back-top" href="#home">Back to top ↑</a>
+  </footer>
+
+  <script>
+    /*
+      ==========================================================
+      SETTINGS — EDIT THESE DETAILS TO PERSONALIZE THE WEBSITE
+      ==========================================================
+      WhatsApp number: country code + number, digits only.
+      Example India: "919876543210" (do not use + or spaces).
+    */
+    const SETTINGS = {
+      brideName: "Srashti",
+      groomName: "Tanmay",
+      weddingDate: "2026-11-25T19:00:00+05:30",
+      weddingDateText: "25 November 2026",
+      weddingDateTimeText: "25 November 2026 · 7:00 PM",
+      haldiText: "23 November 2026 · 11:00 AM",
+      mehndiText: "24 November 2026 · 5:00 PM",
+      weddingEventText: "25 November 2026 · 7:00 PM",
+      receptionText: "26 November 2026 · 7:30 PM",
+      venueName: "Royal Wedding Venue",
+      venueAddress: "Hathras, Uttar Pradesh, India",
+      mapSearch: "Royal Wedding Venue, Hathras, Uttar Pradesh, India",
+      whatsappNumber: "91XXXXXXXXXX"
+    };
+
+    const byId = (id) => document.getElementById(id);
+    const setText = (id, value) => { const element = byId(id); if (element) element.textContent = value; };
+
+    function applySettings() {
+      ["introBride", "navBride", "heroBride", "footerBride"].forEach(id => setText(id, SETTINGS.brideName));
+      ["introGroom", "navGroom", "heroGroom", "footerGroom"].forEach(id => setText(id, SETTINGS.groomName));
+      setText("introDate", SETTINGS.weddingDateText);
+      setText("heroDate", SETTINGS.weddingDateTimeText);
+      setText("haldiDate", SETTINGS.haldiText);
+      setText("mehndiDate", SETTINGS.mehndiText);
+      setText("weddingEventDate", SETTINGS.weddingEventText);
+      setText("receptionDate", SETTINGS.receptionText);
+      setText("venueName", SETTINGS.venueName);
+      setText("venueAddress", SETTINGS.venueAddress);
+      setText("footerDate", SETTINGS.weddingDateText);
+      byId("mapLink").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(SETTINGS.mapSearch);
+      document.title = SETTINGS.brideName + " & " + SETTINGS.groomName + " | Wedding Invitation";
+    }
+
+    function updateCountdown() {
+      const target = new Date(SETTINGS.weddingDate).getTime();
+      const now = Date.now();
+      let distance = target - now;
+      if (Number.isNaN(target)) distance = 0;
+      if (distance <= 0) {
+        setText("days", "0"); setText("hours", "00"); setText("minutes", "00"); setText("seconds", "00");
+        return;
+      }
+      setText("days", Math.floor(distance / 86400000));
+      setText("hours", String(Math.floor((distance % 86400000) / 3600000)).padStart(2, "0"));
+      setText("minutes", String(Math.floor((distance % 3600000) / 60000)).padStart(2, "0"));
+      setText("seconds", String(Math.floor((distance % 60000) / 1000)).padStart(2, "0"));
+    }
+
+    function openInvitation() {
+      byId("intro").classList.add("closed");
+      document.body.classList.remove("locked");
+    }
+    byId("openInvite").addEventListener("click", openInvitation);
+
+    // If the visitor has already opened the invitation in this page session, do not force another click.
+    // The invitation intentionally opens on each fresh visit for the envelope-style experience.
+
+    byId("menuToggle").addEventListener("click", () => {
+      const isOpen = byId("navLinks").classList.toggle("open");
+      byId("menuToggle").setAttribute("aria-expanded", String(isOpen));
+      byId("menuToggle").textContent = isOpen ? "✕" : "☰";
+    });
+    document.querySelectorAll("#navLinks a").forEach(link => {
+      link.addEventListener("click", () => {
+        byId("navLinks").classList.remove("open");
+        byId("menuToggle").setAttribute("aria-expanded", "false");
+        byId("menuToggle").textContent = "☰";
+      });
+    });
+
+    byId("rsvpForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = byId("guestName").value.trim();
+      const count = byId("guestCount").value;
+      const attendance = byId("attendance").value;
+      const message = byId("guestMessage").value.trim();
+      if (!name) { byId("guestName").focus(); return; }
+      if (!/^\d{10,15}$/.test(SETTINGS.whatsappNumber)) {
+        alert("Please add a valid WhatsApp number in SETTINGS at the bottom of index.html, including country code. Example: 919876543210");
+        return;
+      }
+      const text = [
+        "Wedding RSVP — " + SETTINGS.brideName + " & " + SETTINGS.groomName,
+        "Name: " + name,
+        "Guests: " + count,
+        "Response: " + attendance,
+        message ? "Message: " + message : ""
+      ].filter(Boolean).join("\n");
+      const url = "https://wa.me/" + SETTINGS.whatsappNumber + "?text=" + encodeURIComponent(text);
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+
+    // Gentle reveal animation, with a safe fallback if IntersectionObserver is unavailable.
+    const revealItems = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries, currentObserver) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            currentObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach(item => observer.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add("visible"));
+    }
+
+    applySettings();
+    updateCountdown();
+    window.setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
